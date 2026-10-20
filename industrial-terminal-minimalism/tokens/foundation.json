@@ -1,0 +1,217 @@
+{
+  "version": "1.0.0",
+  "semantic": {
+    "space": {
+      "4": {
+        "$type": "dimension",
+        "$value": "0.25rem"
+      },
+      "8": {
+        "$type": "dimension",
+        "$value": "0.5rem"
+      },
+      "12": {
+        "$type": "dimension",
+        "$value": "0.75rem"
+      },
+      "16": {
+        "$type": "dimension",
+        "$value": "1rem"
+      },
+      "24": {
+        "$type": "dimension",
+        "$value": "1.5rem"
+      },
+      "32": {
+        "$type": "dimension",
+        "$value": "2rem"
+      },
+      "48": {
+        "$type": "dimension",
+        "$value": "3rem"
+      },
+      "64": {
+        "$type": "dimension",
+        "$value": "4rem"
+      },
+      "96": {
+        "$type": "dimension",
+        "$value": "6rem"
+      },
+      "128": {
+        "$type": "dimension",
+        "$value": "8rem"
+      }
+    },
+    "font": {
+      "display": {
+        "$type": "fontFamily",
+        "$value": "\"Departure Mono\", \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace"
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": "system-ui, -apple-system, \"Segoe UI\", sans-serif"
+      },
+      "heading": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.body}"
+      },
+      "technical": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.display}"
+      },
+      "marker": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.display}"
+      },
+      "data": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.body}"
+      },
+      "navigation": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.body}"
+      },
+      "control": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.body}"
+      },
+      "status": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font.body}"
+      }
+    },
+    "size": {
+      "display": {
+        "$type": "dimension",
+        "$value": "{primitive.size.display}"
+      },
+      "heading": {
+        "$type": "dimension",
+        "$value": "{primitive.size.heading}"
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "{primitive.size.body}"
+      },
+      "meta": {
+        "$type": "dimension",
+        "$value": "{primitive.size.small}"
+      },
+      "technical": {
+        "$type": "dimension",
+        "$value": "{primitive.size.body}"
+      },
+      "navigation": {
+        "$type": "dimension",
+        "$value": "{primitive.size.body}"
+      },
+      "control": {
+        "$type": "dimension",
+        "$value": "{primitive.size.body}"
+      },
+      "status": {
+        "$type": "dimension",
+        "$value": "{primitive.size.small}"
+      }
+    },
+    "line": {
+      "display": {
+        "$type": "number",
+        "$value": 1.1
+      },
+      "heading": {
+        "$type": "number",
+        "$value": 1.3
+      },
+      "label": {
+        "$type": "number",
+        "$value": 1.4
+      },
+      "body": {
+        "$type": "number",
+        "$value": 1.5
+      }
+    },
+    "tracking": {
+      "label": {
+        "$type": "dimension",
+        "$value": "0.03em"
+      }
+    },
+    "radius": {
+      "default": {
+        "$type": "dimension",
+        "$value": "0"
+      },
+      "maximum": {
+        "$type": "dimension",
+        "$value": "2px"
+      }
+    },
+    "control": {
+      "height": {
+        "$type": "dimension",
+        "$value": "2.75rem"
+      },
+      "denseRow": {
+        "$type": "dimension",
+        "$value": "2.25rem"
+      }
+    },
+    "rule": {
+      "width": {
+        "$type": "dimension",
+        "$value": "1px"
+      }
+    },
+    "focus": {
+      "width": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "offset": {
+        "$type": "dimension",
+        "$value": "3px"
+      }
+    },
+    "shadow": {
+      "default": {
+        "$type": "shadow",
+        "$value": "none"
+      }
+    }
+  },
+  "primitive": {
+    "size": {
+      "small": {
+        "$type": "dimension",
+        "$value": "0.875rem"
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "1rem"
+      },
+      "heading": {
+        "$type": "dimension",
+        "$value": "1.375rem"
+      },
+      "displaySmall": {
+        "$type": "dimension",
+        "$value": "2.0625rem"
+      },
+      "display": {
+        "$type": "dimension",
+        "$value": "2.75rem"
+      },
+      "displayLarge": {
+        "$type": "dimension",
+        "$value": "4.125rem"
+      },
+      "displayExtra": {
+        "$type": "dimension",
+        "$value": "5.5rem"
+      }
+    }
+  }
+}

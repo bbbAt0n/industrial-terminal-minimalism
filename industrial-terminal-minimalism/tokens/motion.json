@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "semantic": {
+    "motion": {
+      "decorativeFps": {
+        "$type": "number",
+        "$value": 8
+      },
+      "decorativeDuration": {
+        "$type": "duration",
+        "$value": "1000ms"
+      },
+      "decorativeSteps": {
+        "$type": "number",
+        "$value": 8
+      },
+      "cursorPeriod": {
+        "$type": "duration",
+        "$value": "1200ms"
+      },
+      "interaction": {
+        "$type": "duration",
+        "$value": "0ms"
+      },
+      "feedback": {
+        "$type": "duration",
+        "$value": "125ms"
+      },
+      "reducedDuration": {
+        "$type": "duration",
+        "$value": "0ms"
+      },
+      "feedbackSteps": {
+        "$type": "number",
+        "$value": 1
+      },
+      "selectionDuration": {
+        "$type": "duration",
+        "$value": "0ms"
+      },
+      "selectionSteps": {
+        "$type": "number",
+        "$value": 0
+      },
+      "ambientCycle": {
+        "$type": "duration",
+        "$value": "8000ms"
+      },
+      "reactiveFps": {
+        "$type": "number",
+        "$value": 8
+      }
+    }
+  }
+}

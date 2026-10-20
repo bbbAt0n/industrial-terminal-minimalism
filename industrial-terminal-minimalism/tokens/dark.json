@@ -1,0 +1,190 @@
+{
+  "version": "1.0.0",
+  "mode": "dark",
+  "primitive": {
+    "color": {
+      "paper": {
+        "$type": "color",
+        "$value": "#151714"
+      },
+      "recess": {
+        "$type": "color",
+        "$value": "#242722"
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "#DCD6C5"
+      },
+      "secondaryInk": {
+        "$type": "color",
+        "$value": "#ABA999"
+      },
+      "amber": {
+        "$type": "color",
+        "$value": "#C99A56"
+      },
+      "functionalAmber": {
+        "$type": "color",
+        "$value": "#C99A56"
+      },
+      "edge": {
+        "$type": "color",
+        "$value": "#7C8074"
+      },
+      "rule": {
+        "$type": "color",
+        "$value": "#4D5147"
+      },
+      "selection": {
+        "$type": "color",
+        "$value": "#DCD6C5"
+      },
+      "selectionInk": {
+        "$type": "color",
+        "$value": "#151714"
+      },
+      "selectionHover": {
+        "$type": "color",
+        "$value": "#C6C0AE"
+      },
+      "red": {
+        "$type": "color",
+        "$value": "#E29C8F"
+      },
+      "blue": {
+        "$type": "color",
+        "$value": "#99B8CC"
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "canvas": {
+        "$type": "color",
+        "$value": "{primitive.color.paper}"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{primitive.color.recess}"
+      },
+      "text": {
+        "$type": "color",
+        "$value": "{primitive.color.ink}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{primitive.color.secondaryInk}"
+      },
+      "accentSeed": {
+        "$type": "color",
+        "$value": "{primitive.color.amber}"
+      },
+      "accentText": {
+        "$type": "color",
+        "$value": "{primitive.color.functionalAmber}"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{primitive.color.edge}"
+      },
+      "divider": {
+        "$type": "color",
+        "$value": "{primitive.color.rule}"
+      },
+      "selected": {
+        "$type": "color",
+        "$value": "{primitive.color.selection}"
+      },
+      "onSelected": {
+        "$type": "color",
+        "$value": "{primitive.color.selectionInk}"
+      },
+      "selectedHover": {
+        "$type": "color",
+        "$value": "{primitive.color.selectionHover}"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{primitive.color.red}"
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{primitive.color.blue}"
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{primitive.color.functionalAmber}"
+      }
+    }
+  },
+  "component": {
+    "button": {
+      "bg": {
+        "$type": "color",
+        "$value": "{semantic.color.selected}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{semantic.color.onSelected}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{semantic.color.selectedHover}"
+      }
+    },
+    "secondaryButton": {
+      "bg": {
+        "$type": "color",
+        "$value": "{semantic.color.canvas}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{semantic.color.text}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{semantic.color.surface}"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{semantic.color.border}"
+      }
+    },
+    "field": {
+      "bg": {
+        "$type": "color",
+        "$value": "{semantic.color.canvas}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{semantic.color.text}"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{semantic.color.border}"
+      },
+      "invalid": {
+        "$type": "color",
+        "$value": "{semantic.color.error}"
+      }
+    },
+    "row": {
+      "bg": {
+        "$type": "color",
+        "$value": "{semantic.color.canvas}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{semantic.color.surface}"
+      },
+      "selected": {
+        "$type": "color",
+        "$value": "{semantic.color.selected}"
+      },
+      "selectedText": {
+        "$type": "color",
+        "$value": "{semantic.color.onSelected}"
+      }
+    }
+  }
+}

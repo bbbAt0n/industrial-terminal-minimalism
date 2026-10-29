@@ -1,6 +1,6 @@
 # Industrial Terminal Minimalism — Design DNA
 
-Version **1.0.0**. Normative identity specification. MUST indicates a requirement; SHOULD indicates a default with a documented contextual reason for departure. Tokens provide values, while this document defines their relationships and use. Design quality also requires [the critique rubric](validation/rubric.md).
+Version **1.0.0**. Normative identity specification within the scope chosen by the user/project. The [scope and precedence rules](SKILL.md#scope-and-precedence) take priority over stylistic defaults. MUST indicates a requirement; SHOULD indicates a default with a contextual reason for departure. Tokens provide values, while this document defines their relationships and use. The [rubric](validation/rubric.md) expands the visual review criteria when needed.
 
 ## Identity and reference interpretation
 
@@ -13,7 +13,7 @@ These are aesthetic relationships, not page structures. A marketing narrative, m
 | Shared identity | Chosen for the actual product |
 | --- | --- |
 | Warm neutral palette and semantic state colors | Region count, content order, navigation and interaction models |
-| Departure Mono plus one coherent reading face where needed | Type sizes, display prominence, reading measure |
+| Coherent sans roles plus optional Departure Mono / verified mono fallback | Type sizes, display prominence, reading measure |
 | Precise alignment, intentional spacing rhythm | Grid tracks, container width, breakpoints, relative proportions |
 | Square/minimally rounded geometry and restrained depth | Density, section spacing, amount/distribution of negative space |
 | Functional rules, meaningful selection and feedback | Cards, tables, imagery, panes, progressive disclosure when justified |
@@ -30,7 +30,7 @@ No universal 12-column grid, master/detail layout, hero, fixed section sequence,
 | Primary text | `#2E3432` | `#DCD6C5` |
 | Warm accent seed | `#99734C` | `#C99A56` |
 
-Light is primary for new products; preserve explicit existing user preferences. Dark translates the same hierarchy and relationships. Use [semantic tokens](tokens/README.md) for interfaces and propagate them into charts/canvas/native resources where relevant.
+Light is the primary design reference; dark translates the same hierarchy and relationships. At runtime, preserve the existing theme controller. For a new controller use this precedence: explicit saved user choice (light/dark/system), then system `prefers-color-scheme` or native equivalent in system mode/no saved choice, then light when no preference API is available. Follow system changes only in system mode; never overwrite an explicit light/dark choice. Test both themes regardless of the initial theme. Use [semantic tokens](tokens/README.md) across UI, charts/canvas and native resources.
 
 Keep large surfaces neutral. Accent establishes emphasis or operational meaning without becoming a default background treatment. Use `accentText`, not the light accent seed, for contrast-safe functional text. `border` serves necessary boundaries; `divider` is a quieter decorative/grouping rule. Pair `selected` / `onSelected` for bounded inversion and `selectedHover` for its hover state. If widespread inversion would overwhelm the page, use a smaller selected marker with explicit semantics instead of filling every selected region.
 
@@ -49,13 +49,13 @@ Do not select a font independently for each component, alternate mono/sans arbit
 - Ordinary UI has no decorative shadows. Use a functional border/backdrop for overlays; retain necessary native presentation conventions.
 - Standard web controls target at least 44px height. Dense desktop rows may be smaller where appropriate, while satisfying applicable target-size/accessibility requirements. Touch layouts need their own comfortable hit areas.
 - Focus must be visible, unobscured, and distinct from selection or invalid state. The supplied default is a 2px outline with a 3px offset onto a tested adjacent surface.
-- Cards and borders require real grouping/interaction meaning. Avoid repeated containers whose only role is decorating metrics or filling a grid. Open regions are useful where they clarify relationships, not a mandate for all content.
+- Cards and borders require grouping/interaction meaning. Honor requested cards, including metric cards in a monitoring dashboard; keep comparable values aligned and avoid redundant nested frames. Avoid gratuitous containers added only to decorate metrics or fill a grid. Open regions are an option, not a mandate.
 
 ## ASCII and technical character
 
 Use ASCII as an expressive medium: authored fields, silhouettes, spatial relationships and product transformations may be substantial visual subjects for artistic, atmospheric, explanatory or functional purposes. Small status companions and separators remain useful; they are not the limit of the vocabulary. See [ASCII art direction and implementation](references/ascii-motion.md). ASCII is not a quota or a required prefix on every section. Hide decorative sequences from assistive technology; retain meaningful text and semantic status/progress. Long separators should be CSS/native rules, not unwrappable character runs.
 
-Choose art for its product context and composition; avoid frames around every field, fake command syntax, invented telemetry, and glyph-only or false-affordance actions. The product should feel deliberately engineered without forcing console interaction onto ordinary tasks.
+Choose art for its product context and composition; avoid frames around every field, fake command syntax, telemetry presented as real when it is synthetic, and glyph-only or false-affordance actions. Labeled demo data follows [SKILL.md](SKILL.md#scope-and-precedence). The product should feel deliberately engineered without forcing console interaction onto ordinary tasks.
 
 ## Motion identity
 

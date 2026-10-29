@@ -13,12 +13,12 @@ Requires **Python 3.10+**, standard library only. Download and extract the ZIP f
 ```sh
 git clone https://github.com/bbbAt0n/industrial-terminal-minimalism.git
 cd industrial-terminal-minimalism
-python install.py --agent codex
+python install.py --agent codex --scope project --project "/path/to/project"
 ```
 
-Run commands from the extracted/cloned folder. On Windows, `py -3` can replace `python`; on macOS/Linux use `python3` if needed. All commands install the same skill and its relative resources.
+Run commands from the extracted/cloned folder. **Project installation is recommended** for one product, coursework, or repositories with their own design requirements. A personal installation makes the skill discoverable across projects; use it only when you want that availability. Availability does not authorize a redesign: the skill applies when requested or when the project adopts this identity. On Windows, `py -3` can replace `python`; on macOS/Linux use `python3` if needed. All commands install the same skill and its relative resources.
 
-| Client | Personal install command | Explicit activation |
+| Client | Optional personal install command | Explicit activation |
 | --- | --- | --- |
 | Codex | `python install.py --agent codex` | `$industrial-terminal-minimalism` |
 | Claude Code | `python install.py --agent claude` | `/industrial-terminal-minimalism` |
@@ -27,10 +27,9 @@ Run commands from the extracted/cloned folder. On Windows, `py -3` can replace `
 | Antigravity CLI | `python install.py --agent antigravity-cli` | `/industrial-terminal-minimalism` |
 
 ```sh
-# Preview without writing; project install; update with backup:
-python install.py --agent codex --dry-run
-python install.py --agent codex --scope project --project "/path/to/project"
-python install.py --agent codex --update
+# Preview project destination; update that project with backup:
+python install.py --agent codex --scope project --project "/path/to/project" --dry-run
+python install.py --agent codex --scope project --project "/path/to/project" --update
 ```
 
 For another client, replace `codex` with its table value. For a project update, retain `--scope project --project "/path/to/project"` and add `--update`. Obtain/extract the new release first, or run `git pull --ff-only` in a clean clone before updating. Existing installations are protected unless `--update` is supplied. Updates preserve the old folder outside skill discovery and print its backup path. To restore it, move the new installation aside and move that backup to the original destination. Uninstall by removing only the exact installed skill folder printed by the installer.
@@ -49,7 +48,7 @@ Relative to your home directory (personal) or the selected project root; append 
 
 Codex and Antigravity share a project destination: install once when using both. Manual installation: copy the entire [skill folder](industrial-terminal-minimalism/) to the chosen destination, retaining its license, notices and relative resources. No client settings are modified; installation and runtime examples need no remote service or asset download.
 
-Start a fresh client session and explicitly activate the skill. Ask it to read `SKILL.md`, `STYLE.md` and the theme tokens from its installed folder before applying it to a task. Automatic selection depends on the host. These are documented installation targets, not certified integrations: see [adapters and activation checks](industrial-terminal-minimalism/adapters/README.md). Claude Code 2.1.220 is present in the release environment but is signed out; genuine activation could not be verified. Other client activation and native WinUI/Tk runtime behavior are also unverified for this release. Local Windows installation checks do not establish macOS/Linux client compatibility.
+Start a fresh client session and explicitly activate the skill. Ask it to read `SKILL.md`, `STYLE.md` and the theme tokens from its installed folder before applying it to a task. **Claude Code installation and activation were confirmed in a user field test reported 2026-10-29**, followed by a server-monitoring dashboard with two themes and ASCII animation. The report also confirmed checksum-matching installation. Automatic selection without naming the skill was not tested in that dashboard run; an unrelated coursework session reportedly triggered the previous broad description. This revision narrows selection to the chosen identity; its automatic selection behavior still needs a fresh client test. See [activation evidence and limits](industrial-terminal-minimalism/adapters/verification.md). Other client activation and native WinUI/Tk runtime behavior remain unverified. Local Windows installation checks do not establish macOS/Linux client compatibility.
 
 ## License and references
 

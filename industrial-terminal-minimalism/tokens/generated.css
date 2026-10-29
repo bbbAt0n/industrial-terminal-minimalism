@@ -57,12 +57,12 @@
   --itm-font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
   --itm-font-control: var(--itm-font-body);
   --itm-font-data: var(--itm-font-body);
-  --itm-font-display: "Departure Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --itm-font-display: var(--itm-font-body);
   --itm-font-heading: var(--itm-font-body);
-  --itm-font-marker: var(--itm-font-display);
+  --itm-font-marker: var(--itm-font-technical);
   --itm-font-navigation: var(--itm-font-body);
   --itm-font-status: var(--itm-font-body);
-  --itm-font-technical: var(--itm-font-display);
+  --itm-font-technical: "Departure Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --itm-line-body: 1.5;
   --itm-line-display: 1.1;
   --itm-line-heading: 1.3;

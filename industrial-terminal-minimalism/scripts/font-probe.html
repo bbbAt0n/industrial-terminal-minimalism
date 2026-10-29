@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data: blob:; connect-src 'none'">
+<title>ASCII font density calibration</title>
+<link rel="stylesheet" href="../tokens/generated.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0 auto; padding: 24px; max-width: 1100px; background: var(--itm-color-canvas); color: var(--itm-color-text); font: 16px/1.5 var(--itm-font-body); }
+  h1 { font: 1.6rem/1.2 var(--itm-font-display); }
+  form { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; }
+  label { display: grid; gap: 4px; }
+  input, button, textarea { font: inherit; padding: 8px; background: var(--itm-color-surface); color: inherit; border: 1px solid var(--itm-color-border); border-radius: 0; }
+  button, input { min-height: 44px; }
+  input[type=number] { width: 100px; }
+  :focus-visible { outline: 2px solid var(--itm-color-focus); outline-offset: 3px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin: 24px 0; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 8px; border-bottom: 1px solid var(--itm-color-border); }
+  code { white-space: pre; font-synthesis: none; font-variant-ligatures: none; }
+  textarea { width: 100%; min-height: 180px; font: 14px/1.5 var(--itm-font-technical); }
+</style>
+<h1>ASCII font density calibration</h1>
+<p>Local measurement only. No font downloads, uploads or external network requests. Missing or blocked sources stay unmeasured. Coverage is geometric ink area, not a universal perceptual brightness scale.</p>
+<form id="settings">
+  <label>Font size (px)<input id="size" type="number" min="8" max="96" value="16" required></label>
+  <label>Line pitch (px)<input id="pitch" type="number" min="8" max="144" value="20" required></label>
+  <label>Additional local family<input id="family" placeholder="e.g. Cascadia Mono" maxlength="100"></label>
+  <button type="submit">Measure fonts</button>
+</form>
+<p id="status" role="status">Ready.</p>
+<div class="scroll" role="region" aria-label="Font density results" tabindex="0">
+  <table>
+    <caption>Regular face, sparse to dense; space is the first ramp character</caption>
+    <thead><tr><th scope="col">Font source</th><th scope="col">Status / cell (px)</th><th scope="col">Measured ramp and ink coverage</th></tr></thead>
+    <tbody id="results"></tbody>
+  </table>
+</div>
+<label>Copyable Markdown table<textarea id="report" readonly spellcheck="false"></textarea></label>
+<p>Confirm the artwork's actual glyph provider in DevTools Rendered Fonts. Inspect the ramp and static poster in both themes; rerun at the artwork's size and line pitch. Very short pitch can clip glyphs. Local font privacy restrictions can make an installed face unavailable here.</p>
+<script>
+const form = document.querySelector('#settings');
+const status = document.querySelector('#status');
+const results = document.querySelector('#results');
+const report = document.querySelector('#report');
+const families = ['Departure Mono', 'Consolas', 'Courier New', 'Menlo', 'SFMono-Regular', 'Liberation Mono'];
+const glyphs = Array.from(' .,:;!|/\\-_=+*oO0#%@');
+const loaded = [];
+let run = 0;
+function cell(row, text) {
+  const td = document.createElement('td');
+  td.textContent = text;
+  row.append(td);
+  return td;
+}
+function md(text) { return String(text).replaceAll('|', '&#124;').replaceAll('\n', ' '); }
+function measure(face, size, pitch) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d', {willReadFrequently: true});
+  const scale = window.devicePixelRatio || 1;
+  const font = `${size}px "${face.family}"`;
+  ctx.font = font;
+  const advances = glyphs.map(g => ctx.measureText(g).width);
+  const advance = ctx.measureText('M').width;
+  if (Math.max(...advances, advance) - Math.min(...advances, advance) > 0.05)
+    throw new Error('Not fixed-width for this ASCII set; no shared-cell ramp');
+  const metrics = ctx.measureText(glyphs.join(''));
+  const inkHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+  canvas.width = Math.ceil(advance * scale);
+  canvas.height = Math.ceil(pitch * scale);
+  ctx.scale(scale, scale);
+  ctx.font = font;
+  ctx.fillStyle = '#fff'; // transparent raster mask; not a product color
+  const baseline = (pitch - inkHeight) / 2 + metrics.actualBoundingBoxAscent;
+  const coverage = glyphs.map(glyph => {
+    ctx.clearRect(0, 0, advance + 1, pitch + 1);
+    ctx.fillText(glyph, 0, baseline);
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let alpha = 0;
+    for (let i = 3; i < pixels.length; i += 4) alpha += pixels[i];
+    return {glyph, percent: 100 * alpha / (255 * canvas.width * canvas.height)};
+  }).sort((a, b) => a.percent - b.percent);
+  return {advance, coverage, clipped: inkHeight > pitch};
+}
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+  for (const face of loaded) document.fonts.delete(face);
+  loaded.length = 0;
+  results.replaceChildren();
+  report.value = '';
+  const controls = [...form.elements];
+  controls.forEach(control => control.disabled = true);
+  status.textContent = 'Measuring explicit local sources...';
+  const size = Number(document.querySelector('#size').value);
+  const pitch = Number(document.querySelector('#pitch').value);
+  const extra = document.querySelector('#family').value.trim();
+  const names = [...new Set([...families, ...(extra ? [extra] : [])])];
+  const lines = [`Size ${size}px; pitch ${pitch}px; device pixel ratio ${window.devicePixelRatio || 1}.`, '',
+    '| Font source | Status / cell (px) | Ramp (sparse to dense) | Ink coverage (%) |',
+    '| --- | --- | --- | --- |'];
+  try {
+    let index = 0;
+    for (const name of names) {
+      const row = document.createElement('tr');
+      results.append(row);
+      cell(row, name);
+      // Generated alias prevents a missing named source from succeeding via CSS fallback.
+      const face = new FontFace(`ITMProbe${++run}_${index++}`, `local(${JSON.stringify(name)})`, {weight: '400', style: 'normal'});
+      try { await face.load(); }
+      catch {
+        cell(row, 'Unavailable / blocked; not measured');
+        cell(row, '—');
+        lines.push(`| ${md(name)} | Unavailable / blocked | — | — |`);
+        continue;
+      }
+      document.fonts.add(face);
+      loaded.push(face);
+      try {
+        const data = measure(face, size, pitch);
+        const state = `Source loaded; ${data.advance.toFixed(2)} × ${pitch}${data.clipped ? '; pitch clips ink' : ''}`;
+        cell(row, state);
+        const output = cell(row, '');
+        const ramp = data.coverage.map(item => item.glyph).join('');
+        const sample = document.createElement('code');
+        sample.style.fontFamily = `"${face.family}"`;
+        sample.style.fontSize = `${size}px`;
+        sample.style.lineHeight = `${pitch}px`;
+        sample.textContent = ramp;
+        output.append(sample);
+        const detail = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = 'Glyph coverage (%)';
+        detail.append(summary);
+        const text = data.coverage.map(item => `${item.glyph === ' ' ? 'space' : item.glyph}: ${item.percent.toFixed(2)}`).join('; ');
+        detail.append(document.createTextNode(text));
+        output.append(detail);
+        const escapedRamp = ramp.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('|', '&#124;').replaceAll(' ', '&nbsp;');
+        lines.push(`| ${md(name)} | ${md(state)} | <code>${escapedRamp}</code> | ${md(text)} |`);
+      } catch (error) {
+        cell(row, error.message);
+        cell(row, '—');
+        lines.push(`| ${md(name)} | ${md(error.message)} | — | — |`);
+      }
+    }
+    report.value = lines.join('\n');
+    status.textContent = 'Complete. Unavailable sources were not replaced by fallback measurements.';
+  } catch (error) {
+    status.textContent = `Measurement failed: ${error.message}`;
+  } finally { controls.forEach(control => control.disabled = false); }
+});
+</script>
+</html>

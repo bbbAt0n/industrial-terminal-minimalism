@@ -1,6 +1,6 @@
 # Installation and agent adapters
 
-All agents receive the same core, DNA, reasoning, patterns, and QA criteria. Only installation/discovery/activation differs. Native mechanisms are documented, but installed-client activation remains unverified; [the evidence record](verification.md) defines the checks required before claiming a verified integration.
+All agents receive the same core, DNA, reasoning, patterns, and QA criteria. Only installation/discovery/activation differs. Claude Code activation is confirmed by a user field report; other clients remain unverified. [The evidence record](verification.md) distinguishes reported runtime results from local installer checks and defines further smoke tests.
 
 Choose [Codex](codex.md), [Claude Code](claude.md), [Antigravity](antigravity.md), or [Grok Build](grok-build.md) for the destination and invocation. Use [manual instructions](manual.md) where native activation is unavailable. Do not invent discovery filenames or edit unrelated configuration.
 
@@ -33,8 +33,8 @@ cp -R "$skill_source" "$skill_destination"
 
 Avoid overlapping copies. Test activation/resource loading in a fresh client session and record evidence. Updating means deliberately replacing/reviewing that one copy; no global configuration change is required by this repository. Uninstall by removing only the explicitly installed directory after verifying its path.
 
-## Default use for personal UI work
+## Choose installation scope
 
-Choose the adapter's personal/global destination when this is your default identity across products, or its project destination for one product. The description covers substantial UI design, frontend implementation and visual critique. Automatic model invocation is left enabled: no explicit-only flags are shipped. Discovery still depends on host configuration and model selection; automatic application is not guaranteed by a folder copy. Explicitly invoke the named skill if it is missed and verify actual resource reads.
+Prefer the adapter's project destination for one product or coursework; the repository installer accepts `--scope project --project "/path/to/project"`. A personal/global destination exposes the skill across projects and is optional. The installer still defaults to personal scope when `--scope` is omitted, so specify project scope deliberately. The description limits use to a requested or already adopted identity; installation alone must not trigger a redesign. Automatic model invocation remains enabled. Discovery depends on the host and model; retest the narrowed description in both a matching task and an unrelated original-design task. Explicitly invoke the named skill if missed and verify resource reads.
 
 For a future host with no documented skill loader, use the manual adapter with the same core and relative resources. Do not invent native configuration. Existing user choices and requests for another identity take precedence.

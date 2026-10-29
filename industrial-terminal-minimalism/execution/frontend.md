@@ -8,12 +8,12 @@ Inspect framework conventions, theme ownership, shared controls, route/state man
 
 Map [DNA tokens](../tokens/README.md) into existing semantic roles. Add project-specific type-size, spacing, density, and layout roles only as justified by design intent. Keep color meanings consistent across HTML, charts, canvas, and native resources. Maintain a single theme controller; preserve explicit user preferences. Set native-control color scheme through the project's existing mechanism.
 
-Assign the [typography roles](../references/typography.md) before styling individual components. Reuse role definitions for repeated content across screens. Extract components from actual repeated behavior/structure, not speculative template families. Component names should describe product meaning or behavior, not a fixed page position.
+Assign the [typography roles](../references/typography.md) when establishing or changing type treatment. Preserve existing role definitions for an isolated spacing or behavior correction; no font-selection exercise is needed. Reuse roles for repeated content across screens. Extract components from actual repeated behavior/structure, not speculative template families. Component names should describe product meaning or behavior, not a fixed page position.
 
 ## Implement complete interactions
 
 - Use semantic headings, navigation, links, buttons, labels, lists, tables, and platform accessibility primitives. Visual appearance must not misrepresent behavior. ARIA roles require their full keyboard/interaction contract.
-- Bind controls to real application state and actions. A prominent action must have a meaningful result. Do not present fake network activity, fabricated progress percentages, invented metrics, or decorative charts as product functionality. Simulation is permitted only when the task explicitly calls for a clearly identified prototype/evaluation.
+- Bind controls to application state and actions. A prominent action must have a meaningful result. Follow the [production/demo data contract](../SKILL.md#scope-and-precedence): a requested demo may use labeled fixtures and simulated interactions; production data and progress must reflect real operations.
 - Implement applicable default, hover, press, focus, selection, disabled, loading, empty, error, success, and recovery states. Keep feedback close to its cause and preserve layout stability and entered context where possible.
 - Inspect the rendered browser/native parts of controls such as progress and selection: an accent-color declaration may not theme every part. Preserve semantics and forced/system-color behavior while correcting unintended palette defaults.
 - Live validation/filtering must retain an active editor, its draft and focus. If repair makes an item leave the current view, defer that removal until a suitable commit/blur boundary rather than interrupting typing.

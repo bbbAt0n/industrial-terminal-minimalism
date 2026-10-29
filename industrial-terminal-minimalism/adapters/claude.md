@@ -1,6 +1,6 @@
 # Claude Code adapter
 
-**Status:** documented mechanism checked 2026-10-18; installed-client activation unverified. [Evidence and smoke test](verification.md).
+**Status:** installation and fresh-session activation confirmed by a user field report received 2026-10-29. Automatic selection with the revised description remains unverified. [Evidence, limits and smoke test](verification.md).
 
 [Official documentation](https://code.claude.com/docs/en/skills) describes project/personal skills. Follow [the shared copy instructions](README.md) with one destination:
 
@@ -17,4 +17,4 @@ Description matching may also select the skill. Confirm listing and actual resou
 
 Personal machine-local installation does not establish availability in cloud/Cowork sessions. Verify that surface's loading route separately. If native activation is unavailable/unverified, use [manual instructions](manual.md) with the identical design and QA rules.
 
-Keep model invocation enabled (do not set `disable-model-invocation: true`). If a stronger project default is desired, merge a short routing sentence into the existing `CLAUDE.md` pointing UI work to `.claude/skills/industrial-terminal-minimalism/SKILL.md`, preserving other instructions and user-requested identity overrides. The design rules stay in the shared bundle.
+Keep model invocation enabled (do not set `disable-model-invocation: true`). Prefer project installation for a single product. Only when the user requests a project routing instruction, merge a sentence into the existing `CLAUDE.md` pointing work in this chosen identity to `.claude/skills/industrial-terminal-minimalism/SKILL.md`. Preserve other instructions and user-requested identity overrides. The design rules stay in the shared bundle.

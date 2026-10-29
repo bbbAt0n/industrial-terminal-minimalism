@@ -46,7 +46,7 @@
     "font": {
       "display": {
         "$type": "fontFamily",
-        "$value": "\"Departure Mono\", \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace"
+        "$value": "{semantic.font.body}"
       },
       "body": {
         "$type": "fontFamily",
@@ -58,11 +58,11 @@
       },
       "technical": {
         "$type": "fontFamily",
-        "$value": "{semantic.font.display}"
+        "$value": "\"Departure Mono\", \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace"
       },
       "marker": {
         "$type": "fontFamily",
-        "$value": "{semantic.font.display}"
+        "$value": "{semantic.font.technical}"
       },
       "data": {
         "$type": "fontFamily",

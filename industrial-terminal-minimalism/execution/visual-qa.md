@@ -1,6 +1,6 @@
 # Render, interact, critique, correct
 
-Use the [rubric](../validation/rubric.md) to evaluate actual visual quality alongside functional correctness. The rubric contains the review dimensions; this document defines how to obtain evidence. No single page geometry is the target.
+Review the relevant dimensions listed in [SKILL.md](../SKILL.md#3-frontend-execution--visual-qa) alongside functional correctness; consult the [rubric](../validation/rubric.md) only when its detailed questions help. This document owns evidence collection, not another checklist of criteria. No single page geometry is the target.
 
 ## Establish available evidence
 

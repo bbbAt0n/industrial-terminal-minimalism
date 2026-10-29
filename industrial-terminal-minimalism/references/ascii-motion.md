@@ -1,6 +1,6 @@
 # Living ASCII Motion: art direction and implementation
 
-Read during substantial UI design and when implementing character graphics. ASCII is a creative visual medium: objects, portraits, authored illustrations, particles, waves, density fields and atmospheric scenes are legitimate. It need not explain a process. Preserve the warm palette and strong sans hierarchy; Departure Mono supplies the drawing grid and technical character. Do not import a particular product's scene as a universal template.
+Read when designing, implementing or reviewing character graphics. This is the canonical artistic contract; [motion QA](../execution/motion-qa.md) owns animated lifecycle and temporal evidence. ASCII is a creative visual medium: objects, portraits, authored illustrations, particles, waves, density fields and atmospheric scenes are legitimate. It need not explain a process. Preserve the warm palette and strong sans hierarchy; optional Departure Mono or a verified mono fallback supplies the drawing grid. Do not import a particular product's scene as a universal template.
 
 ## Recognizable Subject Before Animation Complexity
 
@@ -33,7 +33,7 @@ Do not add random particles, brighten everything or stack unrelated effects to r
 
 ## Build form with characters
 
-- **Density and shading:** test a short ramp such as ` .,:;+=*#@` in the actual font. Its visual darkness is font-dependent. Map a continuous luminance/field to discrete levels; preserve broad masses before adding texture. Avoid changing the whole field between light/dark every frame.
+- **Density and shading:** calibrate a short ramp in the actual font using the [font-density tool](#font-density-calibration). Its visual darkness is font-dependent. Map a continuous luminance/field to discrete levels; preserve broad masses before adding texture. Avoid changing the whole field between light/dark every frame.
 - **Grid and pitch:** cells are rectangles. Measure advance and line pitch once; correct aspect ratio in geometry before projection. Reserve fixed bounds, disable ligatures/synthesis and avoid wide/combining glyphs unless deliberately measured. Reduce detail/cell count on small windows before shrinking glyphs excessively.
 - **Silhouette/depth:** establish a legible poster and negative space. Sample surfaces/edges, rotate in model space, project with an orthographic or bounded perspective transform, and use a reusable depth buffer for overlapping surfaces. Sparse rear edges and denser lit planes can suggest depth without color gradients.
 - **Waves/noise/particles:** combine low-frequency periodic fields; use seeded deterministic noise, coherent motion and bounded particle counts/lifetimes. Tie wrap/reset paths to the composition. Random glyph replacement is usually flicker, not rich motion. Noise may supply texture without becoming the subject.
@@ -57,15 +57,32 @@ A fixture may animate its explicitly identified connected route, but that is not
 
 Use one `<pre>`/text node, Canvas surface, WinUI TextBlock/custom drawing surface, Tk Label/Canvas text item or the platform equivalent. No per-glyph components, external animation packages, remote assets, CDN, API, editor, cloud or MCP runtime dependency. Examples are [local and optional](../examples/living-ascii/README.md); the existing finite [sequence helper](../examples/primitives/character-sequence.mjs) remains available for finite interactions.
 
-Default character cadence is 8fps; 6–12fps is a useful range. Higher cadence needs a visual/functional reason and a measured cost. Input, focus, selection, application rendering and real task feedback remain immediate. Use monotonic elapsed time, skip late frames, never replay a backlog. Freeze active phase during ambient pause; reactive resume reads current data. Own at most one scheduler per surface, cancel it when hidden/offscreen/inactive, reduced, paused, route-exited or disposed. A guarded permanent timer is not suspension. Reconcile eligibility on state, visibility, preference and layout changes. Prevent duplicate callbacks with cancellation/generation ownership.
-
-Reuse geometry, data arrays and depth buffers. Avoid per-cell DOM/layout reads and unbounded frame histories. Cache authored frames only when small. Profile active rendering, allocation, idle callbacks and control latency at representative density; degrade cell count or cadence before harming interaction. Resize/theme changes render immediately without resetting application work.
+Reuse geometry, data arrays and depth buffers; avoid per-cell DOM/layout reads and unbounded frame histories. Apply the [motion scheduler and profiling contract](../execution/motion-qa.md) when animated. Resize/theme changes render immediately without resetting application work.
 
 ## Accessibility and font strategy
 
-Decorative art is hidden from accessibility trees. Informative visuals need a caption/status or equivalent structured data outside the character field; do not announce every frame. Keep static functional meaning when movement is disabled. Respect preference changes while running. Provide a persistent keyboard-accessible pause/stop/hide for automatic motion alongside content where required; reduced motion alone is not that control. Avoid flashes and random high-contrast inversion. See [accessibility](accessibility.md) for criteria and [temporal QA](../execution/motion-qa.md).
+Decorative art is hidden from accessibility trees. Informative visuals need a caption/status or equivalent structured data outside the character field; do not announce every frame. Apply [accessibility](accessibility.md) as relevant and the [motion controls and preference contract](../execution/motion-qa.md) when animated.
 
-Load Departure Mono locally only when redistribution rights and its OFL license accompany the font. The skill examples use installed Departure Mono with Consolas/Liberation Mono/monospace fallback and contain no font binary. Generated products may copy licensed local font assets. Measure fallback pitch, test absence, preserve a readable poster and keep essential text in the reading family. No runtime font download.
+The examples contain no font binary. Follow [font verification and fallback](typography.md#verify-the-face-then-verify-the-fallback), measure cell pitch and preserve a readable poster in each supported face. No runtime font download.
+
+## Font density calibration
+
+Open [font-probe.html](../scripts/font-probe.html) locally in a browser. It probes explicit local sources for Departure Mono, Consolas, Courier New, Menlo, SFMono-Regular and Liberation Mono; it never treats a generic fallback as that named font. You can enter another installed family. Unavailable/blocked faces have no fabricated measurements.
+
+The tool produces a per-font table of cell advance, pitch, a sparse-to-dense ramp and each glyph's ink coverage (% of the cell). Choose the actual artwork's size/pitch and rerun after a font change. It rasterizes regular ASCII into a transparent cell and sums alpha coverage, normalized by the same cell area for each glyph in that font. This is a reproducible geometric starting point, not a universal perceptual brightness ranking: antialiasing, weight, theme and renderer matter. Inspect the sorted ramp and representative poster in both themes before acceptance. Compare coverage within the measured font/settings; avoid copying numbers between platforms as constants.
+
+Example measured table: Windows in-app Chromium browser, 2026-10-29, regular 16 px, line pitch 20 px, device pixel ratio 1. Values are alpha-weighted ink coverage (%); an em dash means the explicit local source was unavailable/blocked, not that it has zero density. No font binaries are bundled.
+
+| Local source | Cell advance (px) | `.` | `+` | `#` | `@` |
+| --- | --- | --- | --- | --- | --- |
+| Consolas | 8.80 | 3.21 | 11.28 | 24.94 | 36.34 |
+| Courier New | 9.60 | 2.93 | 9.39 | 20.58 | 20.25 |
+| Departure Mono | — | — | — | — | — |
+| Menlo | — | — | — | — | — |
+| SFMono-Regular | — | — | — | — | — |
+| Liberation Mono | — | — | — | — | — |
+
+The `#`/`@` order already differs between these two measured faces. Use the tool's complete sorted ramp for your actual font rather than assuming a universal character order. Unmeasured rows require calibration in an environment that can load those faces.
 
 ## Reference boundary
 

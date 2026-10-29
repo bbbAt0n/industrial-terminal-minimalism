@@ -29,4 +29,25 @@ Default mono stack: `"Departure Mono", "SFMono-Regular", Consolas, "Liberation M
 
 No font binary is bundled. Obtain the font from the [author's releases](https://github.com/rektdeckard/departure-mono/releases), inspect its SIL Open Font License/copyright requirements, and vendor it in the product when reliable availability is necessary. Use the real local asset path and `font-display: swap` on the web; do not add a broken URL or require a font service. Native implementations use their platform's font-loading system. Use `font-synthesis: none` for this face.
 
+### Verify the face, then verify the fallback
+
+`document.fonts.check('16px "Departure Mono"') === true` does **not** prove installation or use: the browser can return true when no matching face exists and fallback is available. `getComputedStyle(...).fontFamily` reports the declared stack, not the rendered face. Width comparison is only a heuristic. See [FontFaceSet.check](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/check).
+
+For a bundled font, confirm the asset exists, its request succeeds, and the declared `FontFace` reaches `loaded`. For a local installation, probe an explicit source under a unique alias so success cannot merely select the CSS fallback:
+
+```js
+const face = new FontFace('ITMDepartureProbe', 'local("Departure Mono")');
+try {
+  await face.load(); // rejects if this local source cannot be loaded
+  document.fonts.add(face);
+  // Apply "ITMDepartureProbe" to the test element, then inspect rendered glyphs.
+} catch {
+  // Unavailable or blocked here: use and report the verified mono fallback.
+}
+```
+
+An explicit [FontFace source](https://developer.mozilla.org/en-US/docs/Web/API/FontFace/FontFace) confirms source loading, not coverage of every character. Inspect the element's actual glyph provider with [DevTools Rendered Fonts](https://developer.chrome.com/docs/devtools/css/reference#rendered-fonts) or an equivalent native inspector, including localized text. When such inspection is unavailable, report source loading separately and leave exact glyph-provider verification unverified. Privacy restrictions can block local font access; a failed probe means unavailable to this page, not proof of absence from the OS.
+
+Without Departure Mono, keep the sans reading/display roles and use a verified available mono face such as Consolas for technical text and ASCII. Do not download a font merely to pass QA, silently claim Departure is present, or replace every role with mono. Measure fallback cell advance/line pitch, recalibrate the [density ramp](ascii-motion.md#font-density-calibration), and inspect wrapping, alignment and the static poster. Force fallback by overriding the technical/marker/art stacks to the selected fallback; blocking a font URL alone does not exclude an installed copy. Record the rendered face (or verification limit) and any layout correction.
+
 Test actual loading and forced absence, long titles/labels, editable text, tabular values, diacritics/localization, and text scaling. Inspect repeated headings, navigation items, field labels, and status messages side by side. Cohesion is verified in the rendered interface, not by the presence of two font-family declarations.

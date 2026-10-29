@@ -15,7 +15,7 @@ Use this before a new interface or substantial redesign. For a bounded change, i
 
 Do not infer a complete layout from a label such as landing page, dashboard, or mobile. One product can contain narrative, transactional, analytical, and utility views with different compositions.
 
-Inspect real content before inventing decorative filler. Missing testimonials, metrics, customer logos, or product claims must not become fabricated proof. Use supplied facts or clearly identified placeholders only when necessary and requested. Material unknowns should be resolved or stated; minor reversible choices should not block progress.
+Inspect real content before inventing decorative filler. Missing testimonials, metrics, customer logos, or product claims must not become fabricated proof. For demo/prototype requests, apply the [labeled sample-data contract](../SKILL.md#scope-and-precedence). Material unknowns should be resolved or stated; minor reversible choices should not block progress.
 
 ## Record a concise design intent
 

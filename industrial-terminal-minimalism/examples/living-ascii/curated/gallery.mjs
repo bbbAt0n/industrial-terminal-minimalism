@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC0-1.0
 import{createSurface}from'../surface.mjs';import{phone,ribbon,directed}from'./art.mjs';import{createPeakEnvelope,waveform}from'./waveform.mjs';
 const $=s=>document.querySelector(s),art=$('#art'),audio=$('#audio'),reduce=matchMedia('(prefers-reduced-motion: reduce)');let mode='phone',paused=false,ctx,analyser,samples,playing=false,frames=0;
 const narrow=()=>innerWidth<600,envelope=createPeakEnvelope(narrow()?40:64),info={

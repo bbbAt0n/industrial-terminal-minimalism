@@ -1,0 +1,18 @@
+{
+  "dark": {
+    "canvas": "#2B2D2B",
+    "surface": "#343834",
+    "text": "#ECEDE6",
+    "muted": "#BFD8C8",
+    "accentSeed": "#F2652B",
+    "accentText": "#F47F4E",
+    "border": "#84968A",
+    "divider": "#4B554E",
+    "focus": "#D7F23A",
+    "selected": "#D7F23A",
+    "onSelected": "#262A28",
+    "selectedHover": "#BFD8C8",
+    "error": "#FF858D",
+    "info": "#80D7ED"
+  }
+}

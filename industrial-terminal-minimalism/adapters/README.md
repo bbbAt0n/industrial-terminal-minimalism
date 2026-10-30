@@ -1,6 +1,6 @@
 # Installation and agent adapters
 
-All agents receive the same core, DNA, reasoning, patterns, and QA criteria. Only installation/discovery/activation differs. Claude Code activation is confirmed by a user field report; other clients remain unverified. [The evidence record](verification.md) distinguishes reported runtime results from local installer checks and defines further smoke tests.
+All clients use the same design guidance, examples and review criteria. Installation and invocation differ by client; automatic selection depends on the client. See [installation and invocation guidance](verification.md).
 
 Choose [Codex](codex.md), [Claude Code](claude.md), [Antigravity](antigravity.md), or [Grok Build](grok-build.md) for the destination and invocation. Use [manual instructions](manual.md) where native activation is unavailable. Do not invent discovery filenames or edit unrelated configuration.
 

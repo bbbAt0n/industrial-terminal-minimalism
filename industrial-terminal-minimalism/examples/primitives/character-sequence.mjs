@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /** Optional finite interaction helper, not a restriction on ambient motion. Supply authored equal-sized frames and semantic text separately. */
 export function createCharacterSequence(element, frames, {fps = 8, poster = frames.length - 1, onComplete = () => {}} = {}) {
   if (!frames.length || !Number.isFinite(fps) || fps < 6 || fps > 12) throw new RangeError('Use finite authored frames at 6-12 updates/sec');

@@ -1,10 +1,10 @@
 # Character-based explanation
 
-**Problem:** A relationship or transformation is easier to understand by seeing it, while a conventional screenshot or photograph does not communicate the intended abstraction.
+**Problem:** A relationship or transformation is easier to understand by seeing it, while a conventional rendered image or photograph does not communicate the intended abstraction.
 
-**Why it belongs:** An intentionally composed field of characters supplies industrial/terminal character through form and material rather than decorative labels. Warm surfaces, limited tones, deliberate scale and bounded motion keep it within the shared identity.
+**Why it belongs:** An intentionally composed field of characters supplies industrial/terminal character through form and material rather than decorative labels. Project-derived material surfaces (default: warm neutral), limited tones, deliberate scale and bounded motion keep it within the shared identity.
 
-**Use when:** A product-specific sequence, silhouette, spatial relationship or actual operation deserves a visual explanation. Decide the subject from content and the user's next question. A static composition may be sufficient; movement should expose a change worth seeing.
+**Use when:** A product-specific sequence, silhouette, spatial relationship or actual operation deserves a visual explanation. Decide the subject from content and the requester's next question. A static composition may be sufficient; movement should expose a change worth seeing.
 
 **Do not use when:** Essential text/data becomes a texture, a real control becomes harder to use, the image adds no understanding, or the only rationale is to fill empty space. Do not invent progress or force an illustrative diagram into an unrelated task.
 

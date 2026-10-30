@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Install the bundled skill. Python 3.10+, standard library only; no downloads."""
 import argparse
 from datetime import datetime, timezone

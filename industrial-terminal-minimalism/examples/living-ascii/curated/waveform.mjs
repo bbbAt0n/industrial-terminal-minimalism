@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC0-1.0
 /** Actual-sample peak envelope. Pure analysis; no clock, randomness or generated activity. */
 export function createPeakEnvelope(columns=64){
  let levels=new Float32Array(columns),raw=new Float32Array(columns),targets=new Float32Array(columns),ceiling=.10;

@@ -1,10 +1,10 @@
 # Industrial Terminal Minimalism — Design DNA
 
-Version **1.0.0**. Normative identity specification within the scope chosen by the user/project. The [scope and precedence rules](SKILL.md#scope-and-precedence) take priority over stylistic defaults. MUST indicates a requirement; SHOULD indicates a default with a contextual reason for departure. Tokens provide values, while this document defines their relationships and use. The [rubric](validation/rubric.md) expands the visual review criteria when needed.
+Normative identity specification within the scope chosen by the requester/project. The [scope and precedence rules](SKILL.md#scope-and-precedence) take priority over stylistic defaults. MUST indicates a requirement; SHOULD indicates a default with a contextual reason for departure. Tokens provide values, while this document defines their relationships and use. The [rubric](validation/rubric.md) expands the visual review criteria when needed.
 
 ## Identity and reference interpretation
 
-Primary influence: NieR's light system UI. Preserve its warm continuous surfaces, strong hierarchy, quiet secondary information, precise alignment, flat selection, and visual restraint. Secondary influences: Alien industrial terminals and cassette futurism, expressed through operational clarity, restrained technical language, discrete feedback, and purposefully composed character graphics.
+Primary influences: warm paper system UI, industrial terminal, cassette futurism. Preserve continuous material-like surfaces (warm paper is the default example), strong hierarchy, quiet secondary information, precise alignment, flat selection, and visual restraint. Express these influences through operational clarity, restrained technical language, discrete feedback, and purposefully composed character graphics.
 
 These are aesthetic relationships, not page structures. A marketing narrative, mobile task, desktop workspace, and analytical screen can share this DNA with different information architectures. Do not copy game imagery/icons or reconstruct their inventory/navigation layouts. See [reference analysis](references/visual-reference.md).
 
@@ -12,8 +12,8 @@ These are aesthetic relationships, not page structures. A marketing narrative, m
 
 | Shared identity | Chosen for the actual product |
 | --- | --- |
-| Warm neutral palette and semantic state colors | Region count, content order, navigation and interaction models |
-| Coherent sans roles plus optional Departure Mono / verified mono fallback | Type sizes, display prominence, reading measure |
+| Project-derived palette in the ITM character (default: warm neutral) and semantic state colors | Region count, content order, navigation and interaction models |
+| Coherent project-selected sans roles plus optional verified technical mono (shipped stacks are defaults) | Type sizes, display prominence, reading measure |
 | Precise alignment, intentional spacing rhythm | Grid tracks, container width, breakpoints, relative proportions |
 | Square/minimally rounded geometry and restrained depth | Density, section spacing, amount/distribution of negative space |
 | Functional rules, meaningful selection and feedback | Cards, tables, imagery, panes, progressive disclosure when justified |
@@ -23,48 +23,47 @@ No universal 12-column grid, master/detail layout, hero, fixed section sequence,
 
 ## Palette and surface relationships
 
-| Role | Light | Dark |
+Project/brand colours and an existing design system outrank the shipped defaults. Identity is the **colour character and role logic**, not specific hex values. Derive and validate palettes through [the palette owner](references/palette.md). The table below is the **default example palette** shipped in `tokens/`, used only when the project has no colours of its own and no better project-derived palette is chosen.
+
+| Default example role | Light | Dark |
 | --- | --- | --- |
 | Canvas | `#E9E6DF` | `#151714` |
 | Secondary surface | `#D4D0C6` | `#242722` |
 | Primary text | `#2E3432` | `#DCD6C5` |
 | Warm accent seed | `#99734C` | `#C99A56` |
 
-Light is the primary design reference; dark translates the same hierarchy and relationships. At runtime, preserve the existing theme controller. For a new controller use this precedence: explicit saved user choice (light/dark/system), then system `prefers-color-scheme` or native equivalent in system mode/no saved choice, then light when no preference API is available. Follow system changes only in system mode; never overwrite an explicit light/dark choice. Test both themes regardless of the initial theme. Use [semantic tokens](tokens/README.md) across UI, charts/canvas and native resources.
+Light is the primary aesthetic reference, not a runtime override. Preserve the project's existing theme controller and supported themes. For a new controller, resolve an explicit user choice (light/dark/system), then the project's configured default when no user choice exists (default: system), then the OS preference in system mode, then light if the preference API is unavailable. An explicit user light/dark choice wins over project defaults and OS changes; system mode follows OS changes. Persist the requester's chosen mode, not each resolved OS colour. A documented project/platform constraint may limit supported themes; do not silently remove an existing user choice. Use one controller across UI, charts/canvas and native resources, with matching native-control colour scheme. Test both supported themes regardless of the initial preference. [Tokens](tokens/README.md) provide values, not a preference controller.
 
-Keep large surfaces neutral. Accent establishes emphasis or operational meaning without becoming a default background treatment. Use `accentText`, not the light accent seed, for contrast-safe functional text. `border` serves necessary boundaries; `divider` is a quieter decorative/grouping rule. Pair `selected` / `onSelected` for bounded inversion and `selectedHover` for its hover state. If widespread inversion would overwhelm the page, use a smaller selected marker with explicit semantics instead of filling every selected region.
+Keep large surfaces neutral or on one restrained tinted ground. Accent establishes emphasis or operational meaning without becoming a default background treatment. Use the validated `accentText`, not an unvalidated accent seed, for contrast-safe functional text. `border` serves necessary boundaries; `divider` is a quieter decorative/grouping rule. Pair `selected` / `onSelected` for bounded inversion and `selectedHover` for its hover state. If widespread inversion would overwhelm the page, use a smaller selected marker with explicit semantics instead of filling every selected region.
 
-Muted red and blue are reserved for meaningful error, information, or connection states. Warning may use warm accent text; success is normally neutral with explicit words. Never rely on color alone. Measure actual composed foreground/background pairs, including new surfaces or imagery. Token validation covers only its declared opaque pairs.
+Project-derived muted semantic colours express error, information or connection states with words/shape. Warning may use the signal accent text; success is normally neutral with explicit words. [Accessibility](references/accessibility.md) owns composed-colour contrast and non-colour meaning requirements.
 
 ## Typography and cohesion
 
-Use the [typography role system](references/typography.md). A coherent sans family leads headings, reading and controls. Departure Mono supplies technical identity and may lead justified short instrument displays. The same semantic role must retain a coherent family, size tier, weight, line height, tracking, and case policy across the interface.
-
-Do not select a font independently for each component, alternate mono/sans arbitrarily between sibling labels, or rely on synthesized Departure Mono weights. Font fallbacks preserve roles. A product may adjust its display scale or choose a denser label treatment without changing the role logic. Baseline 16px body and 14px metadata are starting values; text scaling and platform legibility take priority.
+Sans leads display, headings, reading and controls; an optional project-selected verified mono (Departure Mono is a shipped default only) supplies technical/marker roles and justified short instrument displays. Keep equivalent roles coherent. The [typography contract](references/typography.md) owns assignments, user-provided fonts, verification, fallback, scale and synthesis rules; [foundation tokens](tokens/foundation.json) supply defaults.
 
 ## Geometry, rhythm, and negative space
 
 - Use the 4px spacing family as a starting rhythm. Apply perceptible relationships: tighter within a group, more separation between groups, and larger intervals for major shifts in meaning. Large editorial/marketing spaces are legitimate when they support reading or emphasis. Empty space must have a compositional purpose.
 - Default radius is 0; up to 2px or required native geometry is acceptable. Rules are usually 1 CSS px. Keep optical alignment and device scaling in mind rather than treating raw pixels as cross-platform units.
 - Ordinary UI has no decorative shadows. Use a functional border/backdrop for overlays; retain necessary native presentation conventions.
-- Standard web controls target at least 44px height. Dense desktop rows may be smaller where appropriate, while satisfying applicable target-size/accessibility requirements. Touch layouts need their own comfortable hit areas.
-- Focus must be visible, unobscured, and distinct from selection or invalid state. The supplied default is a 2px outline with a 3px offset onto a tested adjacent surface.
-- Cards and borders require grouping/interaction meaning. Honor requested cards, including metric cards in a monitoring dashboard; keep comparable values aligned and avoid redundant nested frames. Avoid gratuitous containers added only to decorate metrics or fill a grid. Open regions are an option, not a mandate.
+- Control geometry and focus tokens support the [accessibility contract](references/accessibility.md); use that owner for target sizes and focus requirements.
+- Cards and borders require grouping/interaction meaning. Follow the [user-requested-card precedence](SKILL.md#scope-and-precedence), including metric cards in a monitoring dashboard; keep comparable values aligned and avoid redundant nested frames. Avoid gratuitous containers added only to decorate metrics or fill a grid. Open regions are an option, not a mandate.
 
 ## ASCII and technical character
 
-Use ASCII as an expressive medium: authored fields, silhouettes, spatial relationships and product transformations may be substantial visual subjects for artistic, atmospheric, explanatory or functional purposes. Small status companions and separators remain useful; they are not the limit of the vocabulary. See [ASCII art direction and implementation](references/ascii-motion.md). ASCII is not a quota or a required prefix on every section. Hide decorative sequences from assistive technology; retain meaningful text and semantic status/progress. Long separators should be CSS/native rules, not unwrappable character runs.
+Use ASCII as an expressive medium: authored fields, silhouettes, spatial relationships and product transformations may be substantial visual subjects for artistic, atmospheric, explanatory or functional purposes. Small status companions and separators remain useful; they are not the limit of the vocabulary. See [ASCII art direction and implementation](references/ascii-motion.md). ASCII is not a quota or a required prefix on every section. Use CSS/native rules for long separators; [accessibility](references/accessibility.md) owns decorative-content semantics.
 
 Choose art for its product context and composition; avoid frames around every field, fake command syntax, telemetry presented as real when it is synthetic, and glyph-only or false-affordance actions. Labeled demo data follows [SKILL.md](SKILL.md#scope-and-precedence). The product should feel deliberately engineered without forcing console interaction onto ordinary tasks.
 
 ## Motion identity
 
-Ambient compositions may loop continuously; reactive fields follow real application data; interaction effects accompany a deliberate action. These modes can coexist with discrete reveals and operational feedback. Artistic expression is a valid purpose, independent of technical process explanation. Avoid competing focal movement; no fixed animation count or universal duration limit applies. Tabs, focus, selection and their primary indicators MUST synchronize immediately; do not animate a trailing underline to manufacture motion. An independently meaningful secondary effect must never suggest stale selection. Choose them for a reason and validate them over time; see [motion principles and QA](execution/motion-qa.md).
+Artistic atmosphere, real-data response and interaction feedback are valid when their prominence serves the composition. Selection and its primary indicator change immediately; expressive motion must not suggest stale state. No mandatory animation count or universal duration cap applies. [Motion QA](execution/motion-qa.md) owns cadence defaults, scheduler/lifecycle and temporal evidence; [accessibility](references/accessibility.md) owns pause/reduced-motion requirements.
 
-Selected decorative motion normally uses 6–12 steps/sec (default 8); actual data, focus, input, and application rendering remain responsive and independent of that cadence. Reduced motion removes unnecessary movement while preserving task meaning and completion. Do not add animation everywhere or remove useful motion to simplify validation.
+The [canonical ASCII decision table](references/ascii-motion.md#renderer-selection-decision-model) approves Halftone/Grey Tiles for all sources and pixel-raster Braille, single-colour amber Amber Glow and multi-colour phosphor Old Monitor for 2D/simple geometric 3D only. It rejects Mono glyph ramp and supersedes glyph-based Monitor; it owns all source exclusions and phosphor/glow parameters. Approved phosphor glow is a bounded artwork exception to ordinary UI restraint, never a general glow treatment. The canonical owner defines its green/warm/cool presets and custom colour parameter.
 
 ## Restrictions and quality boundary
 
-Forbidden: Matrix black/green and neon-green hacker identity; aggressive cyberpunk colors; excessive neon, glow, gradients, shadows or arbitrary effects; heavy CRT distortion; constant glitch/flicker; generic AI-generated SaaS arrangements with excessive cards, badges, decorative icons, or empty sections.
+Old Monitor may use phosphor green only as a phosphor colour under the canonical artwork contract. Forbidden: a general black/green hacker-terminal identity or neon-green hacker identity; aggressive cyberpunk colors; excessive neon, glow, gradients, shadows or arbitrary effects; heavy CRT distortion; constant glitch/flicker; generic AI-generated SaaS arrangements with excessive cards, badges, decorative icons, or empty sections.
 
 Conventional patterns remain usable when justified by real content and tasks. A credible marketing argument, useful comparison, or efficient desktop workspace should keep its appropriate composition. Technical compliance and surface styling cannot compensate for weak hierarchy, inconsistent type, careless spacing, irrelevant imagery, confusing feedback, or copied generic structure. Review those dimensions explicitly before delivery.

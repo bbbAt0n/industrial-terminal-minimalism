@@ -4,6 +4,6 @@ Use when the client lacks native skill discovery, the installed surface is undoc
 
 Make the bundle's actual contents readable to the agent and paste:
 
-> Apply Industrial Terminal Minimalism v1 from this bundle to my product task. Read SKILL.md and STYLE.md and follow their resource routing. Analyze the product before choosing composition; make the Motion & ASCII Opportunity Assessment for substantial UI work. Preserve architecture/functionality, implement the chosen design, inspect actual rendered quality and interactions, and validate motion over time. Disclose unperformed checks. My task is: [describe product, content, scope, and constraints].
+> Apply Industrial Terminal Minimalism from this bundle to my task. Read SKILL.md, select its task mode and follow only that reading route. For Full Redesign, present three distinct directions and wait for my choice before implementation; for standalone ASCII, no website is required. Preserve architecture/functionality, inspect the affected result and disclose unperformed checks. My task is: [describe product, content, scope, and constraints].
 
-Replace the final bracketed phrase with a real task. If local paths cannot be read, attach/paste contents rather than filenames alone. Include the reference image when image inspection is available. Do not supply the historical fixture as a composition example. Missing image/interaction/recording access leaves the relevant verification unperformed.
+Replace the final bracketed phrase with a real task. If local paths cannot be read, attach/paste contents rather than filenames alone. Include a relevant supplied reference image when image inspection is available. Missing image/interaction/recording access leaves the relevant verification unperformed.

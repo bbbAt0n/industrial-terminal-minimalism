@@ -1,0 +1,18 @@
+{
+  "light": {
+    "canvas": "#CFC9B4",
+    "surface": "#E2DDCA",
+    "text": "#3A3832",
+    "muted": "#56534A",
+    "accentSeed": "#3A3832",
+    "accentText": "#3A3832",
+    "border": "#726E5E",
+    "divider": "#ABA590",
+    "focus": "#3A3832",
+    "selected": "#3A3832",
+    "onSelected": "#E2DDCA",
+    "selectedHover": "#4B483E",
+    "error": "#813F32",
+    "info": "#40574F"
+  }
+}

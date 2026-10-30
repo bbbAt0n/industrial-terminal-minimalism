@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<html lang="en" data-theme="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Satellite / graphical print studies</title>
+<link rel="stylesheet" href="../../../tokens/generated.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--itm-color-canvas);color:var(--itm-color-text);font:16px/1.5 var(--itm-font-body)}
+main{max-width:1000px;margin:0 auto;padding:32px 24px}h1{font-size:clamp(28px,5vw,48px);line-height:1.1;font-weight:500;letter-spacing:-.04em;margin:12px 0 24px}
+.eyebrow{font:13px var(--itm-font-technical);color:var(--itm-color-accentSeed)}p{max-width:65ch}nav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}
+button{font:inherit;color:inherit;background:transparent;border:1px solid var(--itm-color-text);padding:8px 12px;min-height:44px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--itm-color-text);color:var(--itm-color-canvas)}button:disabled{cursor:default}
+button:focus-visible,a:focus-visible{outline:2px solid var(--itm-color-accentSeed);outline-offset:4px}a{color:inherit;text-underline-offset:4px}
+figure{margin:0;border-block:1px solid var(--itm-color-surface);padding:16px 0}canvas{display:block;width:100%;max-width:720px;height:auto;margin:auto}figcaption{font-size:14px;margin-top:16px}
+#status{font:13px var(--itm-font-technical)}footer{border-top:1px solid var(--itm-color-surface);margin-top:24px;padding-top:16px;font-size:14px}
+</style>
+<main>
+<div class="eyebrow">ORIGINAL PROCEDURAL STUDY / 12 s</div>
+<h1 id="title">Halftone satellite</h1>
+<p id="description">Graphical print-style dot screen. Dot area carries tone. This is a non-character renderer, not literal ASCII.</p>
+<nav aria-label="Graphical renderer"><button id="halftone" aria-pressed="true">Halftone</button><button id="tiles" aria-pressed="false">Grey Tiles</button></nav>
+<figure><canvas id="art" width="720" height="480" aria-hidden="true"></canvas><figcaption>Original satellite: two solar wings, stepped instrument bus and an antenna. Continuous turntable at 30 updates per second; no measured telemetry.</figcaption></figure>
+<nav aria-label="Playback and appearance"><button id="pause">Pause</button><button id="restart">Restart</button><button id="theme">Dark theme</button></nav>
+<p id="status" role="status">Playing / 30 Hz</p>
+<footer><a href="README.md">Source, native fallback and lifecycle notes</a> · CC0 original study. No fonts or assets are downloaded.</footer>
+</main>
+<!-- Classic scripts intentionally support direct file opening, with no module fetch. -->
+<script src="source.mjs"></script><script src="sampling.mjs"></script><script src="renderers.mjs"></script><script src="player.mjs"></script>
+</html>

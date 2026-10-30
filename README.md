@@ -2,41 +2,41 @@
 
 [English](README.md) | [Русский](README.ru.md)
 
-**v1** · A portable UI design and frontend implementation skill for Codex, Claude Code, Grok Build and Antigravity.
+An agent skill for designing and building calm, precise interfaces with an industrial-terminal character: warm materials, strict typography, one signal colour and living ASCII graphics. It adapts to your project instead of forcing a template.
 
-Warm light surfaces, precise typography, restrained geometry and clear selection, with a complete dark theme. The identity adapts to the product instead of imposing a screen template. **Living ASCII Motion** covers authored, procedural and actual-data-reactive character graphics, reduced motion, pause and lifecycle behavior. Includes design tokens, accessibility guidance, implementation examples and visual QA.
+## What you get
 
-## Install and update
+- **A palette method built around your project and brand.** Start with Paper menu, Research poster or Signal board, then check contrast with `tokens.py validate-palette`. The warm paper/graphite token set is a default starting point, not a requirement. See [palette guidance](industrial-terminal-minimalism/references/palette.md).
+- **Free font choice**, guided by readability, purpose, language coverage, licensing and fallbacks; no imposed font.
+- **Layout checks at 390, 768, 1440, 1920 and 2560 px**, with rules for wide and 2K+ screens.
+- **Living ASCII with five modes:** Halftone and Grey Tiles for any source; Braille, Amber Glow and Old Monitor for maps, outlines, large type, flat graphics and simple 3D. Old Monitor supports green/warm/cool phosphor presets or any colour. [Integrate the engine in three steps](industrial-terminal-minimalism/examples/living-ascii/README.md#integrate-the-engine-in-3-steps).
+- **Four task modes:** Quick Edit, Visual Restyle, Full Redesign (three directions, you pick one) and ASCII Artwork.
+- **Light and dark design tokens**, accessibility and visual QA guidance, and implementation examples.
+
+## Install
 
 Requires **Python 3.10+**, standard library only. Download and extract the ZIP from [Releases](https://github.com/bbbAt0n/industrial-terminal-minimalism/releases), or clone:
 
 ```sh
 git clone https://github.com/bbbAt0n/industrial-terminal-minimalism.git
 cd industrial-terminal-minimalism
+```
+
+Run `python install.py --agent <client>` from the extracted or cloned folder for a personal installation. For one product, project scope is recommended:
+
+```sh
 python install.py --agent codex --scope project --project "/path/to/project"
 ```
 
-Run commands from the extracted/cloned folder. **Project installation is recommended** for one product, coursework, or repositories with their own design requirements. A personal installation makes the skill discoverable across projects; use it only when you want that availability. Availability does not authorize a redesign: the skill applies when requested or when the project adopts this identity. On Windows, `py -3` can replace `python`; on macOS/Linux use `python3` if needed. All commands install the same skill and its relative resources.
-
-| Client | Optional personal install command | Explicit activation |
+| Client | Personal install | Invocation |
 | --- | --- | --- |
 | Codex | `python install.py --agent codex` | `$industrial-terminal-minimalism` |
 | Claude Code | `python install.py --agent claude` | `/industrial-terminal-minimalism` |
-| Grok Build CLI | `python install.py --agent grok` | `/industrial-terminal-minimalism` |
-| Antigravity App/IDE | `python install.py --agent antigravity` | App: `/industrial-terminal-minimalism`; IDE: name it and inspect Customizations |
+| Grok Build | `python install.py --agent grok` | `/industrial-terminal-minimalism` |
+| Antigravity App/IDE | `python install.py --agent antigravity` | `/industrial-terminal-minimalism` |
 | Antigravity CLI | `python install.py --agent antigravity-cli` | `/industrial-terminal-minimalism` |
 
-```sh
-# Preview project destination; update that project with backup:
-python install.py --agent codex --scope project --project "/path/to/project" --dry-run
-python install.py --agent codex --scope project --project "/path/to/project" --update
-```
-
-For another client, replace `codex` with its table value. For a project update, retain `--scope project --project "/path/to/project"` and add `--update`. Obtain/extract the new release first, or run `git pull --ff-only` in a clean clone before updating. Existing installations are protected unless `--update` is supplied. Updates preserve the old folder outside skill discovery and print its backup path. To restore it, move the new installation aside and move that backup to the original destination. Uninstall by removing only the exact installed skill folder printed by the installer.
-
-### Locations
-
-Relative to your home directory (personal) or the selected project root; append `/industrial-terminal-minimalism` to each path:
+Locations are relative to your home directory (personal) or project root. Append `/industrial-terminal-minimalism` to each path:
 
 | Client | Personal | Project |
 | --- | --- | --- |
@@ -46,26 +46,26 @@ Relative to your home directory (personal) or the selected project root; append 
 | Antigravity App/IDE | `.gemini/config/skills` | `.agents/skills` |
 | Antigravity CLI | `.gemini/antigravity-cli/skills` | `.agents/skills` |
 
-Codex and Antigravity share a project destination: install once when using both. Manual installation: copy the entire [skill folder](industrial-terminal-minimalism/) to the chosen destination, retaining its license, notices and relative resources. No client settings are modified; installation and runtime examples need no remote service or asset download.
+Codex and Antigravity share a project destination; install one copy when using both. In the Antigravity IDE, you can also name the skill explicitly in the agent panel.
 
-Start a fresh client session and explicitly activate the skill. Ask it to read `SKILL.md`, `STYLE.md` and the theme tokens from its installed folder before applying it to a task. **Claude Code installation and activation were confirmed in a user field test reported 2026-10-29**, followed by a server-monitoring dashboard with two themes and ASCII animation. The report also confirmed checksum-matching installation. Automatic selection without naming the skill was not tested in that dashboard run; an unrelated coursework session reportedly triggered the previous broad description. This revision narrows selection to the chosen identity; its automatic selection behavior still needs a fresh client test. See [activation evidence and limits](industrial-terminal-minimalism/adapters/verification.md). Other client activation and native WinUI/Tk runtime behavior remain unverified. Local Windows installation checks do not establish macOS/Linux client compatibility.
+Add `--dry-run` to preview the destination. Add `--update` to install a new version with a backup; keep the same scope and project options. To install manually, copy the entire [skill folder](industrial-terminal-minimalism/) to the chosen location with its relative resources. On Windows, `py -3` can replace `python`; on macOS/Linux, use `python3` if needed.
 
-## License and references
+Start a new session and invoke the skill explicitly; agents do not always pick it up automatically.
 
-Original project-controlled materials are [MIT licensed](LICENSE), Copyright (c) 2026 bbbAt0n. Original Living ASCII examples, posters and audio retain their existing [CC0 dedication](industrial-terminal-minimalism/examples/living-ascii/LICENSE.txt); see [scope, provenance and exceptions](industrial-terminal-minimalism/NOTICE.md).
+## Quick start
 
-You may use the skill to build **personal and commercial interfaces**, subject to the applicable licenses. Generated websites and applications do **not** automatically inherit MIT. Copying substantial repository materials may carry their applicable notice obligations; separately obtained assets and dependencies retain their own licenses.
-
-No private reference screenshot, Pinterest download, game artwork or font binary is bundled. NieR:Automata and Alien are aesthetic influences only; no affiliation or endorsement is implied. Departure Mono is optional and separately licensed. Provenance review is not a complete legal clearance.
-
-## Resources and checks
-
-Start with [SKILL.md](industrial-terminal-minimalism/SKILL.md), [STYLE.md](industrial-terminal-minimalism/STYLE.md), [tokens](industrial-terminal-minimalism/tokens/README.md), [Living ASCII examples](industrial-terminal-minimalism/examples/living-ascii/README.md) and the [changelog](industrial-terminal-minimalism/CHANGELOG.md).
-
-```sh
-python scripts/release.py check
-python industrial-terminal-minimalism/scripts/tokens.py check
-python industrial-terminal-minimalism/scripts/tokens.py validate
+```text
+$industrial-terminal-minimalism Redesign the dashboard in src/ for our telemetry product. Derive the palette from our brand colours and add a living ASCII map in the hero.
 ```
 
-The release check uses temporary isolated installations, verifies checksums and links, and exercises documented installer routes. A manifest detects missing/modified files, not publisher identity. Structural checks do not prove visual quality or client activation. Research, field-test applications, private references, recordings and caches are excluded from distribution.
+## Checks (optional, for contributors)
+
+```sh
+python -X utf8 scripts/release.py check
+python -X utf8 industrial-terminal-minimalism/scripts/tokens.py check
+python -X utf8 industrial-terminal-minimalism/scripts/tokens.py validate
+```
+
+## License
+
+Released under the [MIT License](LICENSE). The Living ASCII examples, posters and audio study are dedicated to the public domain under [CC0 1.0](industrial-terminal-minimalism/examples/living-ascii/LICENSE.txt). What you build with the skill is yours. See [NOTICE.md](industrial-terminal-minimalism/NOTICE.md) for font credits.

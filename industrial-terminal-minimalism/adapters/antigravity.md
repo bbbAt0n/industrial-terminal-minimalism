@@ -1,6 +1,6 @@
 # Antigravity adapter
 
-**Status:** documented mechanism checked 2026-10-18; App, CLI, and IDE runtime activation all unverified. [Evidence and smoke test](verification.md).
+Install the folder at one destination below, then invoke the skill explicitly in a new session. Automatic selection depends on the client. See [installation and invocation guidance](verification.md).
 
 [Official documentation](https://antigravity.google/docs/skills) distinguishes locations by surface. Follow [the shared copy instructions](README.md):
 

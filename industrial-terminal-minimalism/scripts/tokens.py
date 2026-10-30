@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Build and validate this bundle's small, documented token format (stdlib only)."""
 import argparse
 import json
@@ -9,7 +10,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 ALIAS = re.compile(r"^\{([a-zA-Z0-9_.]+)\}$")
 DIMENSION = re.compile(r"^(?:0|\d+(?:\.\d+)?(?:px|rem|em|ch))$")
 
@@ -102,6 +103,43 @@ def contrast(a, b):
     return (high + .05) / (low + .05)
 
 
+def contrast_pairs(mode, get):
+    """One declared opaque-pair contract for shipped and project palettes."""
+    for bg in ("canvas", "surface"):
+        for fg in ("text", "muted", "accentText", "error", "info"):
+            yield mode, fg, bg, contrast(get(fg), get(bg)), 4.5
+        for fg in ("border", "focus"):
+            yield mode, fg, bg, contrast(get(fg), get(bg)), 3.0
+    for bg in ("selected", "selectedHover"):
+        yield mode, "onSelected", bg, contrast(get("onSelected"), get(bg)), 4.5
+
+
+def validate_palette(path):
+    """Validate {light: {role: '#RRGGBB'}, dark: {...}}; one theme is sufficient."""
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(doc, dict) or not doc or set(doc) - {"light", "dark"}:
+        raise ValueError("Palette requires light and/or dark theme objects only")
+    roles = {"canvas", "surface", "text", "muted", "accentSeed", "accentText",
+             "border", "divider", "focus", "selected", "onSelected", "selectedHover", "error", "info"}
+    failed = False
+    for mode, colors in doc.items():
+        if not isinstance(colors, dict) or set(colors) != roles:
+            raise ValueError(f"{mode}: expected exactly these semantic roles: {', '.join(sorted(roles))}")
+        for role, color in colors.items():
+            if not isinstance(color, str) or not re.fullmatch(r"#[0-9A-Fa-f]{6}", color):
+                raise ValueError(f"{mode}: {role} requires opaque six-digit hex")
+        pairs = list(contrast_pairs(mode, colors.__getitem__))
+        for _, fg, bg, ratio, threshold in pairs:
+            ok = ratio >= threshold
+            failed |= not ok
+            print(f"{'PASS' if ok else 'FAIL'}: {mode} {fg}/{bg} = {ratio:.3f}:1 (required {threshold:g}:1)")
+        lowest = min(pairs, key=lambda row: row[3] / row[4])
+        print(f"{mode}: {len(pairs)} contrast pairs; tightest {lowest[1]}/{lowest[2]} "
+              f"= {lowest[3]:.3f}:1 (required {lowest[4]:g}:1)")
+    print("FAIL: custom palette contrast" if failed else "PASS: custom palette roles, values and contrast contracts")
+    return int(failed)
+
+
 def validate():
     errors, ratios = [], []
     themes = {mode: load(mode) for mode in ("light", "dark")}
@@ -132,13 +170,7 @@ def validate():
             if not valid:
                 errors.append(f"{mode}: invalid {kind} at {path}: {value}")
         get = lambda role: resolve(tokens, "semantic.color." + role)
-        for bg in ("canvas", "surface"):
-            for fg in ("text", "muted", "accentText", "error", "info"):
-                ratios.append((mode, fg, bg, contrast(get(fg), get(bg)), 4.5))
-            for fg in ("border", "focus"):
-                ratios.append((mode, fg, bg, contrast(get(fg), get(bg)), 3.0))
-        for bg in ("selected", "selectedHover"):
-            ratios.append((mode, "onSelected", bg, contrast(get("onSelected"), get(bg)), 4.5))
+        ratios.extend(contrast_pairs(mode, get))
         motion = lambda key: resolve(tokens, "semantic.motion." + key)
         duration = int(motion("decorativeDuration")[:-2])
         fps, steps = motion("decorativeFps"), motion("decorativeSteps")
@@ -189,9 +221,14 @@ def validate():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("build", "check", "validate"))
+    parser.add_argument("command", choices=("build", "check", "validate", "validate-palette"))
+    parser.add_argument("palette", nargs="?", type=Path)
     args = parser.parse_args()
+    if (args.command == "validate-palette") != (args.palette is not None):
+        parser.error("validate-palette requires a palette JSON path; other commands take no path")
     try:
+        if args.command == "validate-palette":
+            return validate_palette(args.palette)
         if args.command == "validate":
             return validate()
         target, expected = ROOT / "tokens" / "generated.css", build_css()

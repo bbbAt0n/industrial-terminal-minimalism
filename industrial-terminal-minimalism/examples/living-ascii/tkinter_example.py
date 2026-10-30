@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: CC0-1.0
 """Run with an existing Python + Tk installation. Standard library only."""
 import ctypes, math, sys, time, tkinter as tk
 from tkinter import font

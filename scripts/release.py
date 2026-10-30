@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Validate isolated installations, refresh the manifest, or build a clean ZIP (Python 3.10+)."""
 import argparse
 import hashlib
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = "industrial-terminal-minimalism"
 SKILL = ROOT / NAME
 ROOT_FILES = (".gitattributes", ".gitignore", "LICENSE", "README.md", "README.ru.md", "install.py", "scripts/release.py")
-BLOCKED = {".git", "__pycache__", "node_modules", "Field-Test", "research", "evidence", "legacy-style-lab"}
+BLOCKED = {".git", "__pycache__", "node_modules", "Field-Test", "research", "evidence", "legacy-style-lab", "validation", "releases", "Ref", "downloads"}
 SUFFIXES = {".md", ".json", ".css", ".png", ".wav", ".html", ".mjs", ".py", ".cs", ".txt"}
 
 
@@ -39,7 +40,9 @@ def files():
         if not path.is_file():
             continue
         rel = path.relative_to(SKILL)
-        if BLOCKED.intersection(rel.parts) or (path.name != "LICENSE" and path.suffix not in SUFFIXES):
+        # The canonical rubric is the sole distributable validation resource.
+        blocked = BLOCKED.intersection(rel.parts)
+        if (blocked and rel.as_posix() != "validation/rubric.md") or (path.name != "LICENSE" and path.suffix not in SUFFIXES):
             raise ValueError(f"Unexpected package file: {rel}")
         result.append(rel.as_posix())
     return sorted(result)
@@ -163,6 +166,34 @@ def check():
             assert result.returncode == 0, result.stdout + result.stderr
             print(result.stdout.strip())
             checks.append("tokens " + action)
+        for palette in sorted((SKILL / "tokens/examples").glob("palette-*.json")):
+            result = subprocess.run([sys.executable, str(SKILL / "scripts/tokens.py"),
+                                     "validate-palette", str(palette)],
+                                    capture_output=True, text=True, env=env, timeout=30)
+            assert result.returncode == 0, result.stdout + result.stderr
+            print(result.stdout.strip())
+            checks.append("custom palette " + palette.stem)
+        assert len(list((SKILL / "tokens/examples").glob("palette-*.json"))) >= 3
+        valid = json.loads((SKILL / "tokens/examples/palette-research.json").read_text(encoding="utf-8"))
+        for case in ("low-contrast", "missing-role", "invalid-hex", "unknown-theme", "empty"):
+            candidate = json.loads(json.dumps(valid))
+            if case == "low-contrast":
+                candidate["light"]["text"] = candidate["light"]["canvas"]
+            elif case == "missing-role":
+                del candidate["light"]["focus"]
+            elif case == "invalid-hex":
+                candidate["light"]["text"] = "#xyzxyz"
+            elif case == "unknown-theme":
+                candidate["sepia"] = candidate.pop("light")
+            else:
+                candidate = {}
+            invalid = temporary / (case + ".json")
+            invalid.write_text(json.dumps(candidate), encoding="utf-8")
+            result = subprocess.run([sys.executable, str(SKILL / "scripts/tokens.py"),
+                                     "validate-palette", str(invalid)],
+                                    capture_output=True, text=True, env=env, timeout=30)
+            assert result.returncode != 0 and "FAIL" in result.stdout + result.stderr
+            checks.append("custom palette rejects " + case)
     print(json.dumps({"version": manifest["version"], "passed": len(checks), "checks": checks}, indent=2))
     return manifest
 

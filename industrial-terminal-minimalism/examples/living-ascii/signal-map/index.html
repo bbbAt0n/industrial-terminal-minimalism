@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<html lang="en" data-theme="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sector 07 / scoped Braille study</title>
+<link rel="stylesheet" href="../../../tokens/generated.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--itm-color-canvas);color:var(--itm-color-text);font:16px/1.5 var(--itm-font-body)}
+main{max-width:1600px;margin:auto;padding:32px 24px}h1{font-size:clamp(32px,5vw,48px);font-weight:500;line-height:1.1;letter-spacing:-.04em;margin:12px 0 24px}
+.marker{font:13px var(--itm-font-technical);white-space:nowrap}@media(max-width:440px){.marker{font-size:11px;letter-spacing:-.02em}}p{max-width:65ch}nav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}
+button{font:inherit;color:inherit;background:transparent;border:1px solid var(--itm-color-text);padding:8px 12px;min-height:44px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--itm-color-text);color:var(--itm-color-canvas)}button:disabled{cursor:default}
+button:focus-visible,a:focus-visible{outline:2px solid var(--itm-color-accentSeed);outline-offset:4px}a{color:inherit;text-underline-offset:4px}
+#phosphor-controls button:focus-visible,#phosphor-custom:focus-visible{outline:2px solid var(--itm-color-focus);outline-offset:4px}
+.phosphor-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 24px}.phosphor-controls[hidden]{display:none}
+.phosphor-controls label{display:flex;align-items:center;gap:8px}.phosphor-controls input{width:44px;height:44px;padding:3px;border:1px solid var(--itm-color-text);background:var(--itm-color-canvas);cursor:pointer}
+#phosphor-custom{color-scheme:light}html[data-theme="dark"] #phosphor-custom{color-scheme:dark}
+figure{margin:0;border-block:1px solid var(--itm-color-surface);padding:16px 0}#plate{width:100%;max-width:1600px;margin:auto}canvas{display:block;max-width:100%;height:auto;margin:auto}
+figcaption,footer{font-size:14px}figcaption{margin-top:16px}footer{border-top:1px solid var(--itm-color-surface);padding-top:16px;margin-top:24px}
+#status{font:13px var(--itm-font-technical)}
+
+/* Fluid semantic type and a dominant, bounded artwork column. */
+body{font-size:clamp(15px,.35vw + 13.5px,20px)}
+.marker,#status{font-size:clamp(11px,.45vw + 9px,16px);white-space:normal;overflow-wrap:anywhere}
+figcaption,footer{font-size:clamp(13px,.3vw + 11px,18px)}
+@media(min-width:1100px){
+ main{max-width:2448px;width:96%;padding:clamp(24px,2vw,48px);display:grid;grid-template-columns:minmax(0,2.4fr) minmax(280px,1fr);gap:0 clamp(32px,3vw,76px);align-content:start}
+ .marker,h1,main>p,main>nav,.phosphor-controls{grid-column:2}
+ h1{font-size:clamp(48px,3.2vw,88px);margin-block:16px 24px}
+ figure{grid-column:1;grid-row:1/10;align-self:start;padding:24px 0}
+ #plate{max-width:1600px;width:100%}
+ footer{grid-column:1/-1;margin-top:32px}
+}
+
+</style>
+<main id="study">
+<div class="marker">FICTIONAL TERRITORY / ORIGINAL STUDY / 12 s</div>
+<h1>Sector 07</h1>
+<p>A coastline, a cartographic grid and large display type. Unicode-Braille-style dot lattice rendered graphically with drawn dots; no text glyphs are used for the dots.</p>
+<nav aria-label="Scoped graphical renderer"><button id="braille" aria-pressed="true">Braille</button><button id="amber" aria-pressed="false">Amber Glow</button><button id="monitor" aria-pressed="false">Old Monitor</button></nav>
+<div id="phosphor-controls" class="phosphor-controls" role="group" aria-label="Old Monitor phosphor colour" hidden>
+<button id="phosphor-green" aria-pressed="true">Green</button><button id="phosphor-warm" aria-pressed="false">Warm</button><button id="phosphor-cool" aria-pressed="false">Cool</button>
+<label for="phosphor-custom">Custom <input id="phosphor-custom" type="color" value="#53d878" aria-label="Custom Old Monitor phosphor colour" aria-describedby="status"></label>
+</div>
+<figure><div id="plate"><canvas id="art" width="720" height="480" aria-hidden="true"></canvas></div><figcaption id="caption">Original fictional coastline and flat tonal regions. Slow seamless pan/zoom; no real geography, territorial claims or measured telemetry.</figcaption></figure>
+<nav aria-label="Playback and appearance"><button id="pause">Pause</button><button id="restart">Restart</button><button id="theme">Dark theme</button></nav>
+<p id="status" role="status">Playing / 30 Hz</p>
+<p>Approved for 2D maps, outlines, large display type, flat or few-tone graphics and simple geometric 3D. Complex 3D, photos, textures, fine relief and small text are outside scope. Both phosphor modes always use a dark screen panel.</p>
+<footer><a href="README.md">Scope, raster contract and native guidance</a> · CC0 original procedural study. Works offline.</footer>
+</main>
+<!-- Classic scripts support direct file opening without module fetches. -->
+<script src="raster.mjs"></script><script src="player.mjs"></script>
+</html>

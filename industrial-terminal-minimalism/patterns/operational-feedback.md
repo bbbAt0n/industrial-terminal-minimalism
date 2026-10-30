@@ -4,7 +4,7 @@
 
 **Why it belongs:** Concise state text, restrained ASCII companions, semantic progress, and short stepped emphasis express terminal character through actual operation. Neutral success and meaningful error/connection colors keep the palette quiet.
 
-**Appropriate:** Saving, checking, importing, connecting, cancellation, or another actual operation with observable states. Explicitly identified local simulation is appropriate in an evaluation/prototype that requests it.
+**Appropriate:** Saving, checking, importing, connecting, cancellation, or another actual operation with observable states. Explicitly identified local simulation is appropriate in a demo/prototype that requests it, under the [sample-data contract](../SKILL.md#scope-and-precedence).
 
 **Avoid:** Fake percent completion, ambient activity that implies nonexistent work, decorative command output, excessive live announcements, or loading effects that block unrelated controls.
 

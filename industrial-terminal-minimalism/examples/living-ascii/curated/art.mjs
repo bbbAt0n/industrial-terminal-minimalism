@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC0-1.0
 /** Original artwork functions only. Scheduling belongs to the existing host surface. */
 function sheet(cols,rows){const cells=new Array(cols*rows).fill(' ');return {put(x,y,ch){x=Math.round(x);y=Math.round(y);if(x>=0&&x<cols&&y>=0&&y<rows)cells[y*cols+x]=ch;},text(x,y,s){for(let i=0;i<s.length;i++)this.put(x+i,y,s[i]);},finish(){return Array.from({length:rows},(_,y)=>cells.slice(y*cols,(y+1)*cols).join('')).join('\n');}};}
 export function phone(ms=0,cols=64,rows=28,stage=2){

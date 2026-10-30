@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC0-1.0
 // Add to an existing WinUI 3 app; its App can open new LivingAsciiExample.LivingAsciiWindow().Activate().
 using System;
 using System.Diagnostics;

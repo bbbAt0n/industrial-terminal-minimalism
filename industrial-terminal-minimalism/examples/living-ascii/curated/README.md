@@ -13,4 +13,4 @@ The gallery uses the existing `createSurface` mechanics, not another engine. Art
 
 All surfaces suspend their actual visual scheduler offscreen, hidden, page-inactive, paused or reduced; audio work remains independent. Resizing changes detail before shrinking text further. Inspect light/dark and font fallback at intended size. Decorative fields are hidden from accessibility trees; the purpose/status/control remain semantic.
 
-Posters alone do not prove motion quality; inspect actual frames and normal-speed playback when evaluating these studies. Original artwork, code and the local original audio excerpt are CC0 under the parent [license](../LICENSE.txt). The audio comes from the original Noctra composition, with a finite fade-out; no third-party asset or font binary is bundled.
+Posters alone do not prove motion quality; inspect actual frames and normal-speed playback when evaluating these studies. Original artwork, code and the local original audio excerpt are CC0 under the parent [license](../LICENSE.txt). The audio is an original procedurally synthesized study with a finite fade-out; no third-party asset or font binary is bundled.

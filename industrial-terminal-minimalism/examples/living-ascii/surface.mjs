@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC0-1.0
 /** Local optional mechanics; render supplies original art and separate semantic content. */
 export function createSurface(element, render, {fps=8,cycle=8000}={}){
  if(!Number.isFinite(fps)||fps<=0||!Number.isFinite(cycle)||cycle<=0)throw new RangeError('Positive cadence and cycle required');

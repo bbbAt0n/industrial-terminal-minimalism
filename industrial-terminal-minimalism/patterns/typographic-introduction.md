@@ -2,7 +2,7 @@
 
 **Problem:** A visitor needs to understand a purpose, value, or next decision before acting.
 
-**Why it belongs:** Clear scale, deliberate line breaks, warm open space, and precise alignment express the identity without ornamental chrome. Departure Mono can give a short statement distinctive character while coherent reading text explains it.
+**Why it belongs:** Clear scale, deliberate line breaks, material-like open space (default: warm neutral), and precise alignment express the identity without ornamental chrome. A project-selected mono (Departure Mono is a default example only) can give a short statement distinctive character while coherent reading text explains it.
 
 **Appropriate:** Product discovery, an unfamiliar tool's starting state, or a focused explanation before a consequential task.
 
